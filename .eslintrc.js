@@ -18,7 +18,7 @@ module.exports = {
   settings: {
     'import/resolver': {
       node: {
-        extensions: ['.ts', '.tsx'],
+        extensions: ['js', 'jsx', '.ts', '.tsx'],
       },
     },
   },
@@ -30,7 +30,7 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  ignorePatterns: ['react-app-env.d.ts', 'serviceWorker.ts'],
+  ignorePatterns: ['webpack.config.js'],
   plugins: ['react', '@typescript-eslint', 'prettier', 'react-hooks'],
   rules: {
     'prettier/prettier': ['error'],
