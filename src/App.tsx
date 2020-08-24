@@ -4,7 +4,7 @@ import { hot } from 'react-hot-loader';
 const App: React.FC = () => {
   return (
     <div className="App">
-      <h1> Hello, Typescript with tests </h1>
+      <h1> Hello, Typescript with tests and docker </h1>
     </div>
   );
 };
