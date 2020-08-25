@@ -9,6 +9,6 @@ module.exports = {
     '^.+\\.jsx?$': 'babel-jest',
   },
   moduleNameMapper: {
-    '^.+\\.(css|less|scss)$': 'babel-jest',
+    '^.+\\.(css|less|scss)$': 'jest-css-modules',
   },
 };
