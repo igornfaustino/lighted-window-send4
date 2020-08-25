@@ -8,4 +8,7 @@ module.exports = {
     '^.+\\.tsx?$': 'ts-jest',
     '^.+\\.jsx?$': 'babel-jest',
   },
+  moduleNameMapper: {
+    '^.+\\.(css|less|scss)$': 'babel-jest',
+  },
 };

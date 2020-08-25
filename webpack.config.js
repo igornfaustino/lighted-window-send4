@@ -1,9 +1,12 @@
 const path = require('path');
 const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-module.exports = {
+const isProduction = process.env.NODE_ENV === 'production';
+
+const config = {
   entry: './src/index.tsx', // app start point
-  mode: 'development',
+  mode: isProduction ? 'production' : 'development',
   module: {
     rules: [
       {
@@ -13,12 +16,41 @@ module.exports = {
         options: { presets: ['@babel/env'] },
       },
       {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        test: /\.module\.s(a|c)ss$/,
+        loader: [
+          isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              sourceMap: !isProduction,
+            },
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: !isProduction,
+            },
+          },
+        ],
+      },
+      {
+        test: /\.s(a|c)ss$/,
+        exclude: /\.module.(s(a|c)ss)$/,
+        loader: [
+          isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: !isProduction,
+            },
+          },
+        ],
       },
     ],
   },
-  resolve: { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
+  resolve: { extensions: ['.js', '.jsx', '.ts', '.tsx', '.scss'] },
   output: {
     path: path.resolve(__dirname, 'dist/'),
     publicPath: '/dist/',
@@ -30,5 +62,13 @@ module.exports = {
     publicPath: 'http://localhost:3000/dist/',
     hotOnly: true,
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new MiniCssExtractPlugin({
+      filename: isProduction ? '[name].css' : '[name].css',
+      chunkFilename: isProduction ? '[id].[hash].css' : '[id].css',
+    }),
+  ],
 };
+
+module.exports = config;
