@@ -1,14 +1,28 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { hot } from 'react-hot-loader';
 import styles from './App.module.scss';
 import Building from './components/Building';
+import AllLightsContext from './contexts/AllLightsContext';
 
 const App: React.FC = () => {
+  const [isAllLightsOn, setIsAllLightsOn] = useState(false);
+
+  const handleAllLights = useCallback((e) => {
+    setIsAllLightsOn(e.target.checked);
+  }, []);
+
   return (
-    <div className={styles.app}>
-      <h1> Hello, Typescript with tests and docker </h1>
-      <Building numberOfWindows={12} />
-    </div>
+    <AllLightsContext.Provider value={isAllLightsOn}>
+      <div className={styles.app}>
+        <input
+          type="checkbox"
+          onChange={handleAllLights}
+          checked={isAllLightsOn}
+          data-testid="switch-all-lights"
+        />
+        <Building numberOfWindows={12} />
+      </div>
+    </AllLightsContext.Provider>
   );
 };
 

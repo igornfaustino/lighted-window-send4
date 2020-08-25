@@ -2,6 +2,7 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import Window from './Window';
 import styles from './Window.module.scss';
+import AllLightsContext from '../contexts/AllLightsContext';
 
 describe('Window component', () => {
   test('should render', () => {
@@ -29,5 +30,17 @@ describe('Window component', () => {
     expect(window.classList.contains(styles['light-on'])).toBeTruthy();
     fireEvent.click(window);
     expect(window.classList.contains(styles['light-off'])).toBeTruthy();
+  });
+
+  describe('light context', () => {
+    test('context starts with lights on', () => {
+      const { getByTestId } = render(
+        <AllLightsContext.Provider value>
+          <Window />
+        </AllLightsContext.Provider>
+      );
+      const window = getByTestId('window');
+      expect(window.classList.contains(styles['light-on'])).toBeTruthy();
+    });
   });
 });
