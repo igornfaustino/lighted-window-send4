@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --host 0.0.0.0 --inline",
-    "build": "cross-env NODE_ENV=production webpack"
+    "build": "cross-env NODE_ENV=production webpack",
+    "lint": "eslint src --ext ts,tsx"
   },
   "keywords": [],
   "author": "",

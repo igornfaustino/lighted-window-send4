@@ -1,14 +1,14 @@
 # This is a basic workflow to help you get started with Actions
 
-name: test
+name: QA
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   test:
@@ -16,11 +16,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-          
-      - name: npm install and test
-        run: |
-          npm install
-          npm test
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Check linting
+        run: npm run lint
+
+      - name: Run Tests
+        run: npm test -- --coverage
+
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
