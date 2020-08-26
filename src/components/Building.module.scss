@@ -4,8 +4,15 @@
   border: 5px solid black;
   display: inline-block;
   padding: 50px;
-  padding-bottom: 100px;
+  padding-top: 40px;
+  padding-bottom: 80px;
   z-index: 4;
+
+  @media screen and(max-width: 700px), screen and (max-height: 950px) {
+    padding: 50px;
+    padding-top: 20px;
+    padding-bottom: 40px;
+  }
 
   &::before {
     position: absolute;
@@ -15,6 +22,11 @@
     background-color: #1f527d;
     top: 0;
     left: 6.5%;
+
+    @media screen and (max-height: 800px), screen and (max-width: 600px) {
+      width: 100px;
+      left: 13%;
+    }
   }
 
   &::after {
@@ -25,6 +37,11 @@
     background-color: #1f527d;
     top: 0;
     right: 6.5%;
+
+    @media screen and (max-height: 800px), screen and (max-width: 600px) {
+      width: 100px;
+      right: 13%;
+    }
   }
 }
 
@@ -34,4 +51,18 @@
   grid-column-gap: 100px;
   grid-row-gap: 20px;
   grid-auto-rows: 100px;
+
+  @media screen and(max-width: 700px), screen and (max-height: 950px) {
+    grid-template-columns: 150px 150px;
+    grid-column-gap: 100px;
+    grid-row-gap: 20px;
+    grid-auto-rows: 80px;
+  }
+
+  @media screen and (max-height: 800px), screen and (max-width: 600px) {
+    grid-template-columns: 80px 80px;
+    grid-column-gap: 50px;
+    grid-row-gap: 10px;
+    grid-auto-rows: 60px;
+  }
 }
