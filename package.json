@@ -7,7 +7,8 @@
     "test": "jest --silent",
     "dev": "cross-env NODE_ENV=development webpack-dev-server --host 0.0.0.0 --inline",
     "build": "cross-env NODE_ENV=production webpack",
-    "lint": "eslint src --ext ts,tsx"
+    "lint": "eslint src --ext ts,tsx",
+    "start": "npm run dev"
   },
   "keywords": [],
   "author": "",
