@@ -4,6 +4,9 @@ import styles from './Window.module.scss';
 import AllLightsContext from '../contexts/AllLightsContext';
 import NightModeContext from '../contexts/NightModeContext';
 
+const ENTER_CODE = 13;
+const SPACE_CODE = 32;
+
 const Window: React.FC = () => {
   const isNight = useContext(NightModeContext);
   const isAllLightsOn = useContext(AllLightsContext);
@@ -12,6 +15,15 @@ const Window: React.FC = () => {
   const handleWindowClick = useCallback(() => {
     setIsLightOn((lightState) => !lightState);
   }, []);
+
+  const handleKeyDown = useCallback(
+    (e) => {
+      if (e.keyCode === ENTER_CODE || e.keyCode === SPACE_CODE) {
+        handleWindowClick();
+      }
+    },
+    [handleWindowClick]
+  );
 
   const windowClassName = useMemo(() => {
     const classnames = [styles.window];
@@ -30,6 +42,7 @@ const Window: React.FC = () => {
       data-testid="window"
       className={windowClassName}
       onClick={handleWindowClick}
+      onKeyDown={handleKeyDown}
       role="button"
       tabIndex={0}
     >

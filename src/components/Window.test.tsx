@@ -33,6 +33,31 @@ describe('Window component', () => {
     expect(window.classList.contains(styles['light-off'])).toBeTruthy();
   });
 
+  test('turn lights on and off when hit enter', () => {
+    const { getByTestId } = render(<Window />);
+    const window = getByTestId('window');
+    fireEvent.keyDown(window, { key: 'Enter', code: 'Enter', keyCode: 13 });
+    expect(window.classList.contains(styles['light-on'])).toBeTruthy();
+    fireEvent.keyDown(window, { key: 'Enter', code: 'Enter', keyCode: 13 });
+    expect(window.classList.contains(styles['light-off'])).toBeTruthy();
+  });
+
+  test('turn lights on and off when hit space', () => {
+    const { getByTestId } = render(<Window />);
+    const window = getByTestId('window');
+    fireEvent.keyDown(window, { key: ' ', code: 'Space', keyCode: 32 });
+    expect(window.classList.contains(styles['light-on'])).toBeTruthy();
+    fireEvent.keyDown(window, { key: ' ', code: 'Space', keyCode: 32 });
+    expect(window.classList.contains(styles['light-off'])).toBeTruthy();
+  });
+
+  test('does nothing when other key is hit', () => {
+    const { getByTestId } = render(<Window />);
+    const window = getByTestId('window');
+    fireEvent.keyDown(window, { key: 'a', code: 'KeyA', keyCode: 65 });
+    expect(window.classList.contains(styles['light-off'])).toBeTruthy();
+  });
+
   describe('light context', () => {
     test('context starts with lights on', () => {
       const { getByTestId } = render(
