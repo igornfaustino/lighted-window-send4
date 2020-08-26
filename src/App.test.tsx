@@ -24,10 +24,10 @@ describe('App component', () => {
     const { getByTestId, getAllByTestId } = render(<App />);
     const switchButton = getByTestId('switch-all-lights');
     const windows = getAllByTestId('window');
-    testWindowsClassName(windows, styles['light-off']);
-    fireEvent.click(switchButton);
     testWindowsClassName(windows, styles['light-on']);
     fireEvent.click(switchButton);
     testWindowsClassName(windows, styles['light-off']);
+    fireEvent.click(switchButton);
+    testWindowsClassName(windows, styles['light-on']);
   });
 });

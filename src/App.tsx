@@ -9,7 +9,7 @@ import NightModeContext from './contexts/NightModeContext';
 
 const App: React.FC = () => {
   const { isNight, verifyIfIsNightOnCurrentRegion } = useIsNight();
-  const [isAllLightsOn, setIsAllLightsOn] = useState(false);
+  const [isAllLightsOn, setIsAllLightsOn] = useState(true);
 
   const handleAllLights = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setIsAllLightsOn(e.target.checked);
