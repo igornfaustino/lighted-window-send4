@@ -1,6 +1,11 @@
+$unchecked-color: #ccc;
+$checked-color: rgb(250, 164, 4);
+$dark-color: #1c036e;
+$light-color: white;
+
 .lightBox {
   margin: 8px auto;
-  background-color: white;
+  background-color: $light-color;
   width: 180px;
   border-bottom: 4px solid black;
   border-right: 4px solid black;
@@ -21,11 +26,11 @@
     height: 0;
 
     &:checked + .slider {
-      background-color: rgb(250, 164, 4);
+      background-color: $checked-color;
     }
 
     &:focus + .slider {
-      box-shadow: 0 0 1px rgb(250, 164, 4);
+      box-shadow: 0 0 1px $checked-color;
     }
 
     &:checked + .slider:before {
@@ -43,7 +48,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: $unchecked-color;
   border-top: 2px solid black;
   border-left: 2px solid black;
   border-radius: 2px;
@@ -57,7 +62,7 @@
     width: 26px;
     left: 2px;
     bottom: 2px;
-    background-color: white;
+    background-color: $light-color;
     border-bottom: 2px solid black;
     border-right: 2px solid black;
     border-radius: 2px;
@@ -81,4 +86,24 @@
   position: absolute;
   right: -35px;
   top: 4px;
+}
+
+.dark-mode {
+  &.lightBox {
+    background-color: $dark-color;
+  }
+
+  .slider {
+    &:before {
+      background-color: $dark-color;
+    }
+  }
+
+  .iconLeft {
+    color: $unchecked-color;
+  }
+
+  .iconRight {
+    color: $checked-color;
+  }
 }

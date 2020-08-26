@@ -1,6 +1,8 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import LightSwitchButton from './LightSwitchButton';
+import NightModeContext from '../contexts/NightModeContext';
+import styles from './LightSwitchButton.module.scss';
 
 describe('Light Switch Button component', () => {
   test('should render', () => {
@@ -28,5 +30,27 @@ describe('Light Switch Button component', () => {
     const { getByTestId } = render(<LightSwitchButton onChange={() => null} checked={false} />);
     const checkboxInput = getByTestId('switch-all-lights');
     expect(checkboxInput.getAttribute('checked')).toBeFalsy();
+  });
+
+  describe('night mode', () => {
+    test('is on dark mode', () => {
+      const { getByTestId } = render(
+        <NightModeContext.Provider value>
+          <LightSwitchButton onChange={() => null} checked={false} />
+        </NightModeContext.Provider>
+      );
+      const wrapper = getByTestId('switch-wrapper');
+      expect(wrapper.classList.contains(styles['dark-mode'])).toBeTruthy();
+    });
+
+    test('is not on dark mode', () => {
+      const { getByTestId } = render(
+        <NightModeContext.Provider value={false}>
+          <LightSwitchButton onChange={() => null} checked={false} />
+        </NightModeContext.Provider>
+      );
+      const wrapper = getByTestId('switch-wrapper');
+      expect(wrapper.classList.contains(styles['dark-mode'])).toBeFalsy();
+    });
   });
 });

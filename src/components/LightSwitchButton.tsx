@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useMemo, useContext } from 'react';
 import { HiOutlineLightBulb } from 'react-icons/hi';
 import { VscLightbulb } from 'react-icons/vsc';
+import cx from 'classnames';
 import styles from './LightSwitchButton.module.scss';
+import NightModeContext from '../contexts/NightModeContext';
 
 interface props {
   'data-testid'?: string;
@@ -10,8 +12,16 @@ interface props {
 }
 
 const LightSwitchButton: React.FC<props> = ({ onChange, checked }) => {
+  const isNight = useContext(NightModeContext);
+
+  const switchClassnames = useMemo(() => {
+    const classnames = [styles.lightBox];
+    if (isNight) classnames.push(styles['dark-mode']);
+    return cx(classnames);
+  }, [isNight]);
+
   return (
-    <div className={styles.lightBox}>
+    <div className={switchClassnames} data-testid="switch-wrapper">
       <label className={styles.switch} htmlFor="light-checkbox">
         <input
           type="checkbox"
