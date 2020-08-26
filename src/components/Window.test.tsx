@@ -46,7 +46,7 @@ describe('Window component', () => {
   });
 
   describe('night mode', () => {
-    test('context starts with lights on', () => {
+    test('window is on dark mode', () => {
       const { getByTestId } = render(
         <NightModeContext.Provider value>
           <Window />
@@ -56,7 +56,7 @@ describe('Window component', () => {
       expect(window.classList.contains(styles['dark-mode'])).toBeTruthy();
     });
 
-    test('context starts with lights on', () => {
+    test('window is not on dark mode', () => {
       const { getByTestId } = render(
         <NightModeContext.Provider value={false}>
           <Window />

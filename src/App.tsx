@@ -1,11 +1,11 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { hot } from 'react-hot-loader';
-import styles from './App.module.scss';
 import Building from './components/Building';
 import AllLightsContext from './contexts/AllLightsContext';
 import LightSwitchButton from './components/LightSwitchButton';
 import useIsNight from './hooks/useIsNight';
 import NightModeContext from './contexts/NightModeContext';
+import Scene from './components/Scene';
 
 const App: React.FC = () => {
   const { isNight, verifyIfIsNightOnCurrentRegion } = useIsNight();
@@ -22,11 +22,12 @@ const App: React.FC = () => {
   return (
     <NightModeContext.Provider value={isNight}>
       <AllLightsContext.Provider value={isAllLightsOn}>
-        <div className={styles.app}>
-          <LightSwitchButton onChange={handleAllLights} checked={isAllLightsOn} />
-
-          <Building numberOfWindows={12} />
-        </div>
+        <Scene>
+          <>
+            <LightSwitchButton onChange={handleAllLights} checked={isAllLightsOn} />
+            <Building numberOfWindows={12} />
+          </>
+        </Scene>
       </AllLightsContext.Provider>
     </NightModeContext.Provider>
   );
