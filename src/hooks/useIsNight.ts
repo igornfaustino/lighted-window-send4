@@ -1,6 +1,8 @@
 import { useState, useCallback } from 'react';
 
-const BASE_URL = 'https://api.sunrise-sunset.org/json';
+// used to enable CORS for "production" on localhost
+const PROXY = 'https://cors-anywhere.herokuapp.com/';
+const API_URL = 'https://api.sunrise-sunset.org/json';
 
 interface Position {
   coords: Coordinates;
@@ -32,7 +34,8 @@ const useIsNight: UseIsNightType = () => {
 
   const requestSunriseSunsetAPI = useCallback(({ coords }: Position) => {
     if (!coords || !coords.latitude || !coords.longitude) throw Error('Invalid position');
-    return fetch(`${BASE_URL}?formatted=0&lat=${coords.latitude}&lng=${coords.longitude}`)
+    const url = `${PROXY}${API_URL}?formatted=0&lat=${coords.latitude}&lng=${coords.longitude}`;
+    return fetch(url)
       .then((res) => res.json())
       .then((data) => {
         if (data.status !== 'OK') throw Error(data.status);
