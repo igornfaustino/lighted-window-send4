@@ -2,8 +2,10 @@ import React, { useState, useCallback, useMemo, useContext, useEffect } from 're
 import cx from 'classnames';
 import styles from './Window.module.scss';
 import AllLightsContext from '../contexts/AllLightsContext';
+import NightModeContext from '../contexts/NightModeContext';
 
 const Window: React.FC = () => {
+  const isNight = useContext(NightModeContext);
   const isAllLightsOn = useContext(AllLightsContext);
   const [isLightOn, setIsLightOn] = useState(false);
 
@@ -11,11 +13,13 @@ const Window: React.FC = () => {
     setIsLightOn((lightState) => !lightState);
   }, []);
 
-  const windowClassName = useMemo(
-    () =>
-      isLightOn ? cx(styles.window, styles['light-on']) : cx(styles.window, styles['light-off']),
-    [isLightOn]
-  );
+  const windowClassName = useMemo(() => {
+    const classnames = [styles.window];
+    if (isLightOn) classnames.push(styles['light-on']);
+    else classnames.push(styles['light-off']);
+    if (isNight) classnames.push(styles['dark-mode']);
+    return cx(classnames);
+  }, [isLightOn, isNight]);
 
   useEffect(() => {
     setIsLightOn(isAllLightsOn);
@@ -29,7 +33,12 @@ const Window: React.FC = () => {
       role="button"
       tabIndex={0}
     >
-      Window
+      <div className={styles.leftWindowProtect} />
+      <div className={styles['leftWindowProtect--movable']} />
+      <div className={styles.leftWindowProtect} />
+      <div className={styles.rightWindowProtect} />
+      <div className={styles['rightWindowProtect--movable']} />
+      <div className={styles['protection-grid']} />
     </div>
   );
 };

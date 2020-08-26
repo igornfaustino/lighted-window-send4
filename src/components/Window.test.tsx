@@ -3,6 +3,7 @@ import { render, fireEvent } from '@testing-library/react';
 import Window from './Window';
 import styles from './Window.module.scss';
 import AllLightsContext from '../contexts/AllLightsContext';
+import NightModeContext from '../contexts/NightModeContext';
 
 describe('Window component', () => {
   test('should render', () => {
@@ -41,6 +42,28 @@ describe('Window component', () => {
       );
       const window = getByTestId('window');
       expect(window.classList.contains(styles['light-on'])).toBeTruthy();
+    });
+  });
+
+  describe('night mode', () => {
+    test('context starts with lights on', () => {
+      const { getByTestId } = render(
+        <NightModeContext.Provider value>
+          <Window />
+        </NightModeContext.Provider>
+      );
+      const window = getByTestId('window');
+      expect(window.classList.contains(styles['dark-mode'])).toBeTruthy();
+    });
+
+    test('context starts with lights on', () => {
+      const { getByTestId } = render(
+        <NightModeContext.Provider value={false}>
+          <Window />
+        </NightModeContext.Provider>
+      );
+      const window = getByTestId('window');
+      expect(window.classList.contains(styles['dark-mode'])).toBeFalsy();
     });
   });
 });

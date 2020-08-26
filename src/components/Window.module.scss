@@ -1,15 +1,131 @@
+$window-color: rgb(133, 82, 35);
+
+@mixin window-decoration($index) {
+  &::before {
+    content: '';
+    position: absolute;
+    height: 30%;
+    width: 70%;
+    border: 2px solid black;
+    border-left: 3px solid black;
+    border-top: 4px solid black;
+    z-index: $index;
+    left: 9%;
+    top: 7%;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    height: 30%;
+    width: 70%;
+    border: 2px solid black;
+    border-left: 3px solid black;
+    border-top: 4px solid black;
+    z-index: $index;
+    left: 9%;
+    bottom: 7%;
+  }
+}
+
 .light-off {
-  background-color: grey;
+  background-color: rgb(70, 68, 68);
+
+  .leftWindowProtect--movable {
+    transform: translateX(77%);
+  }
+
+  .rightWindowProtect--movable {
+    transform: translateX(-77%);
+  }
 }
 
 .light-on {
-  background-color: yellow;
+  background-color: rgb(173, 226, 233);
+
+  &.dark-mode {
+    background-color: rgb(233, 233, 159);
+  }
 }
 
 .window {
   border-style: solid;
-  border-width: 5px;
+  border-width: 10px;
+  border-left-width: 5px;
+  border-right-width: 5px;
+  border-top-width: 7px;
   border-color: black;
   display: inline-block;
   cursor: pointer;
+  transition: 0.1s all;
+  position: relative;
+  z-index: 5;
+}
+
+.leftWindowProtect {
+  position: absolute;
+  background-color: darken($color: $window-color, $amount: 5);
+  height: 100%;
+  width: 25%;
+  border: 2px solid black;
+  z-index: 10;
+  @include window-decoration(10);
+}
+
+.leftWindowProtect--movable {
+  position: absolute;
+  background-color: $window-color;
+  height: 100%;
+  width: 25%;
+  border: 2px solid black;
+  z-index: 20;
+  left: 5%;
+  transition: 0.7s transform;
+
+  @include window-decoration(20);
+}
+
+.rightWindowProtect {
+  position: absolute;
+  background-color: darken($color: $window-color, $amount: 5);
+  height: 100%;
+  width: 25%;
+  border: 2px solid black;
+  right: 0;
+  z-index: 10;
+  @include window-decoration(10);
+}
+
+.rightWindowProtect--movable {
+  position: absolute;
+  background-color: $window-color;
+  height: 100%;
+  width: 25%;
+  border: 2px solid black;
+  z-index: 20;
+  right: 5%;
+  transition: 0.7s transform;
+
+  @include window-decoration(20);
+}
+
+.protection-grid {
+  position: absolute;
+  z-index: 5;
+  height: 100%;
+  width: 5px;
+  background-color: black;
+  left: 50%;
+  transform: translateX(-50%);
+
+  &::before {
+    position: absolute;
+    content: '';
+    height: 100%;
+    width: 5px;
+    background-color: black;
+    transform: rotate(90deg);
+    // top: 50px;
+    z-index: 5;
+  }
 }
