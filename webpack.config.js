@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -65,8 +66,14 @@ const config = {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPlugin({
-      filename: isProduction ? '[name].css' : '[name].css',
+      filename: '[name].css',
       chunkFilename: isProduction ? '[id].[hash].css' : '[id].css',
+    }),
+    new HtmlWebpackPlugin({
+      template: './public/index-prod.html',
+      filename: 'index.html',
+      inject: false,
+      base: '/',
     }),
   ],
 };

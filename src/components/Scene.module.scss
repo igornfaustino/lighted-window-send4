@@ -1,0 +1,81 @@
+$day-color1: #42c4c9;
+$day-color2: #b8eaee;
+$night-color1: #0f003f;
+$night-color2: #7c007f;
+
+.scene {
+  text-align: center;
+  overflow: auto;
+  min-height: 100vh;
+  background-image: linear-gradient(to bottom right, $day-color1, $day-color2);
+
+  &.dark-mode {
+    background-image: linear-gradient(to bottom right, $night-color1, $night-color2);
+  }
+}
+
+.cloud {
+  position: absolute;
+  width: 40%;
+  height: 10%;
+  background-color: lighten($color: $day-color2, $amount: 10);
+  top: 30%;
+  left: 10%;
+  border-radius: 80px;
+  z-index: 1;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 120%;
+    height: 80%;
+    background-color: $day-color2;
+
+    top: 70%;
+    left: 30%;
+    border-radius: 80px;
+    z-index: 0;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 50%;
+    height: 60%;
+    background-color: lighten($color: $day-color2, $amount: 10);
+    top: -50%;
+    left: 20%;
+    border-radius: 80px;
+    z-index: 1;
+  }
+}
+
+.floor {
+  position: fixed;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: lighten(green, 40);
+  overflow: hidden;
+  z-index: 10;
+  margin-top: -5px;
+  border-top: 5px solid black;
+}
+
+.dark-mode {
+  .floor {
+    background-color: green;
+  }
+
+  .cloud {
+    background-color: lighten($color: $night-color2, $amount: 10);
+
+    &::before {
+      background-color: $night-color2;
+    }
+
+    &::after {
+      background-color: lighten($color: $night-color2, $amount: 10);
+    }
+  }
+}
