@@ -6,7 +6,6 @@ import styles from './LightSwitchButton.module.scss';
 import NightModeContext from '../contexts/NightModeContext';
 
 interface props {
-  'data-testid'?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   checked: boolean;
 }

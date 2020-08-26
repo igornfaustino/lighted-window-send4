@@ -23,10 +23,8 @@ const App: React.FC = () => {
     <NightModeContext.Provider value={isNight}>
       <AllLightsContext.Provider value={isAllLightsOn}>
         <Scene>
-          <>
-            <LightSwitchButton onChange={handleAllLights} checked={isAllLightsOn} />
-            <Building numberOfWindows={12} />
-          </>
+          <LightSwitchButton onChange={handleAllLights} checked={isAllLightsOn} />
+          <Building numberOfWindows={12} />
         </Scene>
       </AllLightsContext.Provider>
     </NightModeContext.Provider>

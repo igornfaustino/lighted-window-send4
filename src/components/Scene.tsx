@@ -4,7 +4,7 @@ import styles from './Scene.module.scss';
 import NightModeContext from '../contexts/NightModeContext';
 
 interface props {
-  children?: JSX.Element;
+  children?: JSX.Element | JSX.Element[];
 }
 
 const Scene: React.FC<props> = ({ children }) => {
